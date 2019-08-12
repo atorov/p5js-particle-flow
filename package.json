@@ -2,7 +2,9 @@
     "name": "p5js-particle-flow",
     "version": "1.0.0",
     "scripts": {
-        "build": "mkdir -p ./build && cp ./*.html ./build/ && cp favicon.png ./build/ && cp -r ./src ./build/ && cp -r ./img ./build",
+        "build": "npm run clean && mkdir -p ./build && cp ./*.html ./build/ && cp favicon.ico ./build/ && cp -r ./src ./build/ && cp -r ./img ./build",
+        "clean": "rm -rf ./build/",
+        "serve": "npm run build && serve ./build",
         "start": "reload -w ./ -b -v"
     },
     "repository": {
@@ -19,6 +21,7 @@
         "eslint": "^6.1.0",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-plugin-import": "^2.18.2",
-        "reload": "^3.0.1"
+        "reload": "^3.0.1",
+        "serve": "^11.1.0"
     }
 }

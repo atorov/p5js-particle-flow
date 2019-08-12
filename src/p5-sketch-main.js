@@ -6,10 +6,15 @@ const p5Main = new p5((sketch) => {
     const PARTICLE_MAX_SIZE = 75
     const PARTICLES_NUMBER = 1000
 
+    const RELOAD_AFTER = -1 // 30000
+
+    const SAVE_CANVAS_PROBABILITY = -1 // 0.001
+
     let chains
 
     s.setup = () => {
         s.createCanvas(800, 600)
+        s.frameRate(30)
 
         chains = Array(CHAINS_NUMBER).fill().map((...[, chainIndex]) => {
             console.log('::: chain #:', chainIndex)
@@ -26,6 +31,14 @@ const p5Main = new p5((sketch) => {
             console.log('.....................')
             return Array(chainLength).fill().map(() => new window.Particle(s, PARTICLE_MAX_SIZE, color))
         })
+
+
+        if (RELOAD_AFTER > 0) {
+            setTimeout(() => {
+                s.noLoop()
+                window.location.reload()
+            }, RELOAD_AFTER)
+        }
     }
 
     s.draw = async () => {
@@ -54,6 +67,10 @@ const p5Main = new p5((sketch) => {
                 particle.draw(chainIndex, particleIndex)
             })
         })
+
+        if (Math.random() <= SAVE_CANVAS_PROBABILITY) {
+            s.saveCanvas(`${Date.now()}`)
+        }
 
         // s.noLoop()
     }
